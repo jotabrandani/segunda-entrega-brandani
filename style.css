@@ -5,39 +5,47 @@ body {
   background-color: #f4f4f4;
 }
 
- h1, h2 {
+h1,
+h2 {
   text-align: center;
 
 }
-        
-#productos, #carrito {
+
+#productos,
+#carrito {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px; 
+  gap: 10px;
 }
-        
-.producto, .carrito-item {
+
+.producto,
+.carrito-item {
   background: white;
   padding: 15px;
   border-radius: 5px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
-        
-.producto button, .carrito-item button, #vaciarCarrito {
-  background: #28a745; color: white;
+
+.producto button,
+.carrito-item button,
+#vaciarCarrito {
+  background: #28a745;
+  color: white;
   border: none;
   padding: 10px;
   cursor: pointer;
   border-radius: 3px;
 }
 
-.producto button:hover, .carrito-item button:hover, #vaciarCarrito:hover {
+.producto button:hover,
+.carrito-item button:hover,
+#vaciarCarrito:hover {
   background: #0f6321;
 }
 
 #vaciarCarrito {
   display: block;
   margin: 20px auto;
-  padding: 10px 15px; 
+  padding: 10px 15px;
 }
