@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     productos.forEach((producto, index) => {
         const div = document.createElement("div");
         div.classList.add("producto");
-        div.innerHTML = `${producto.nombre} - $${producto.precio} <button data-index="${index}">Agregar</button>`;
+        div.innerHTML = `${producto.nombre} - $ ${producto.precio} <button data-index="${index}">Agregar</button>`;
         productosDiv.appendChild(div);
     });
 
@@ -54,10 +54,19 @@ function mostrarCarrito() {
         totalCompra += totalProducto;
         const div = document.createElement("div");
         div.classList.add("carrito-item");
-        div.innerHTML = `${item.nombre} - $${item.precio} x ${item.cantidad} = $${totalProducto} <button data-index="${index}">Eliminar</button>`;
+        div.innerHTML = `${item.nombre} - $ ${item.precio} x 
+            <input type="number" class="cantidad-selector" data-index="${index}" value="${item.cantidad}" min="1">
+            = $ ${totalProducto} <button data-index="${index}">Eliminar</button>`;
         carritoDiv.appendChild(div);
     });
-    document.getElementById("totalCompra").innerText = `Total: $${totalCompra}`;
+    document.getElementById("totalCompra").innerText = `Total: $ ${totalCompra}`;
+
+    document.querySelectorAll(".cantidad-selector").forEach(input => {
+        input.addEventListener("change", (event) => {
+            actualizarCantidad(event.target.getAttribute("data-index"), event.target.value);
+        });
+    });
+
     carritoDiv.addEventListener("click", (event) => {
         if (event.target.tagName === "BUTTON") {
             eliminarDelCarrito(event.target.getAttribute("data-index"));
@@ -65,13 +74,17 @@ function mostrarCarrito() {
     });
 }
 
+function actualizarCantidad(indice, nuevaCantidad) {
+    let carrito = obtenerCarrito();
+    if (nuevaCantidad < 1) return;
+    carrito[indice].cantidad = parseInt(nuevaCantidad);
+    guardarCarrito(carrito);
+    mostrarCarrito();
+}
+
 function eliminarDelCarrito(indice) {
     let carrito = obtenerCarrito();
-    if (carrito[indice].cantidad > 1) {
-        carrito[indice].cantidad--;
-    } else {
-        carrito.splice(indice, 1);
-    }
+    carrito.splice(indice, 1);
     guardarCarrito(carrito);
     mostrarCarrito();
 }
